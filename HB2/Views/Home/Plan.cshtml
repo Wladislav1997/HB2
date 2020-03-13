@@ -1,0 +1,23 @@
+﻿@model IEnumerable<HB2.Models.Plan>
+@{
+    ViewBag.Title = "Планирование";
+}
+<div class="container">
+    <div>
+        <h4>Все планы</h4>
+    </div>
+    <div>
+        <a asp-action="AddPlan" asp-controller="home" class="btn btn-outline-success btn-sm active" role="button" aria-pressed="true">Добавить</a>
+    </div>
+    <div id="table">
+
+        <table class="table">
+
+            <tr><td>Название</td><td>Период выполнения</td><td>Процент выполнения</td></tr>
+            @foreach (var i in Model)
+            {
+                <tr><td>@i.Name</td><td>@i.Period</td><td>@i.Id</td><td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td></tr>
+            }
+        </table>
+    </div>
+</div>

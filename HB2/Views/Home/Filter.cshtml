@@ -1,0 +1,53 @@
+﻿@model IQueryable<HB2.Models.Operation>
+@{
+    ViewBag.Title = "Поиск Операции";
+}
+<div class="row">
+
+    <div class="col">
+        <form name="myForm" id="form">
+            <div id="divh4">
+                <h5>Поиск </h5>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="inpnem">Название</label>
+                <input type="text" class="form-control" name="Name" id="inpnem">
+            </div>
+            <div class="form-group">
+                <label>Действие</label>
+                <input type="text" class="form-control" name="NameAct">
+            </div>
+            <div class="form-group">
+                <label>Тип</label>
+                <input type="text" class="form-control" name="Type">
+            </div>
+            <div class="form-group">
+                <label>Дата</label>
+                <input type="datetime-local" class="form-control" name="Data">
+            </div>
+            <div class="form-group">
+                <label>Сумма</label>
+                <input type="number" class="form-control" name="Sum">
+            </div>
+            <div class="form-group">
+                <label>Комент</label>
+                <input type="text" class="form-control" name="Coment">
+            </div>
+            <button type="submit" class="btn btn-primary">Поиск</button>
+        </form>
+    </div>
+    <div class="col-9" id="table">
+        <h5>Результат поиска</h5>
+        <table class="table">
+
+            <tr><td>Название</td><td>Дата</td><td>Действие</td><td>Тип</td><td>Вид</td><td>Сумма</td><td>Комент</td></tr>
+            @foreach (var i in Model)
+            {
+                <tr><td>@i.Name</td><td>@i.Sum</td><td>@i.Coment</td></tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+
+</script>

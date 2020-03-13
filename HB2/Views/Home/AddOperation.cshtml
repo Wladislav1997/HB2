@@ -1,0 +1,32 @@
+﻿@model HB2.ViewModels.Id
+@{
+    ViewBag.Title = "Добавление Операции";
+}
+<div class="container">
+    <form asp-action="AddOperation" asp-controller="home" id="Form1" >
+        <input type="hidden" asp-for="Op.PlanId" value=@Model._Id />
+        <div class="form-group">
+            <label asp-for="Op.Name" class="control-label">Название</label>
+            <input type="text" asp-for="Op.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Op.NameAct" class="control-label">Действие</label>
+            <select asp-for="Op.NameAct" class="form-control">
+                <option value="расход">расход</option>
+                <option value="доход">доход</option>
+            </select>
+        </div>
+        <div class="form-group" id="divsum">
+            <label asp-for="Op.Sum" class="control-label">Сумма</label>
+            <input type="number" asp-for="Op.Sum" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Op.Coment" class="control-label">Комент</label>
+            <input type="text" asp-for="Op.Coment" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </form>
+</div>

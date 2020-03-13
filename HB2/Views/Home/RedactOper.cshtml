@@ -1,0 +1,32 @@
+﻿@model HB2.Models.Operation
+@{
+    ViewBag.Title = "Редактирование Операции";
+}
+<div class="container">
+    <form asp-action="RedactOper" asp-controller="home" id="Form1" asp-route-id="@Model.Id">
+        <input type="hidden" asp-for="PlanId" value=@Model.PlanId />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Название</label>
+            <input type="text" asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NameAct" class="control-label">Действие</label>
+            <select asp-for="NameAct" class="form-control">
+                <option value="расход">расход</option>
+                <option value="доход">доход</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sum" class="control-label">Сумма</label>
+            <input asp-for="Sum" type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Coment" class="control-label">Комент</label>
+            <input type="text" asp-for="Coment" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </form>
+</div>

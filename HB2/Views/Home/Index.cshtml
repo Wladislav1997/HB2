@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HB2.Models.Operation>
+@{
+    ViewBag.Title = "Главная";
+}
+
+<div class="container">
+    <div id="data1"></div>
+    <div>
+        <h5>Планируемые действия</h5>
+        <table class="table">
+            <tr><td>Операция</td><td>%</td><td>План</td><td>Действие</td><td>Сумма</td></tr>
+            @foreach (var item in Model)
+            {
+                <tr><td>@item.Name</td>@*<td>@item.Procent</td>*@<td>@item.Plan.Name</td><td>@item.NameAct</td><td>@item.Sum</td><td><a asp-action="Make" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td></tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+    var d=new Date();
+    var days = ["Вс", "Пн", "Вт", "Ср", "Чт", "ПТ", "Сб"];
+    var d2=d.getMonth()+1;
+    var d1=days[d.getDay()] + " " + d.getDate() + ".0"+ d2 + "." + d.getFullYear();
+    $('#data1').append(function() {
+  return d1  ;
+     });
+
+</script>
