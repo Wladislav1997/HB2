@@ -23,11 +23,12 @@ namespace HB.Controllers
         }
         public IActionResult Index()
         {
-            IQueryable<Operation> operat = db.Operations.Include(c => c.Plan);
-            operat = operat.Where(p => p.Plan.User.Email == User.Identity.Name);
-            operat = operat.Where(p => p.Plan.Data <= DateTime.Today && p.Plan.DataPeriod >= DateTime.Today);
 
-            return View(operat);
+            IQueryable<Operation> operation= db.Operations.Include(c => c.Plan);
+            operation = operation.Where(p => p.Plan.User.Email == User.Identity.Name);
+            operation = operation.Where(p => p.Plan.Data <= DateTime.Today && p.Plan.DataPeriod >= DateTime.Today);
+           
+            return View(operation);
         }
         [HttpGet]
         public IActionResult Make(int id)
