@@ -12,10 +12,11 @@ namespace HB2.Models
         public string NameAct { get; set; } // доход расход
         public string Coment { get; set; }
         public int Sum { get; set; }
+        public int Procent { get; set; }
 
         public int PlanId { get; set; }
         public Plan Plan { get; set; }
 
-        //public List<P> p { get; set; }
+        public List<P> p { get; set; }
     }
 }
