@@ -11,7 +11,7 @@ namespace HB2.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Operation> Operations { get; set; }
         public DbSet<Plan> Plans { get; set; }
-        public DbSet<OpR> OpRs { get; set; }
+      
         public DbSet<P> Ps { get; set; }
         public UserContext(DbContextOptions<UserContext> options)
             : base(options)
