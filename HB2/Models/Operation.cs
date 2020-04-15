@@ -17,6 +17,6 @@ namespace HB2.Models
         public int PlanId { get; set; }
         public Plan Plan { get; set; }
 
-        //public List<P> p { get; set; }
+        public List<P> p { get; set; }
     }
 }
