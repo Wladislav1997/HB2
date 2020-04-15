@@ -23,33 +23,22 @@ namespace HB.Controllers
         }
         public IActionResult Index()
         {
-            IQueryable<Operation> operat = db.Operations.Include(c => c.Plan);
+            IQueryable<Operation> operat = db.Operations.Include(c => c.p).Include(u=>u.Plan);
             operat = operat.Where(p => p.Plan.User.Email == User.Identity.Name);
             operat = operat.Where(p => p.Plan.Data <= DateTime.Today && p.Plan.DataPeriod >= DateTime.Today);
             foreach(Operation op in operat)
             {
                 if (op.p != null)
                 {
+                    int pr = op.Sum / 100;// 1%
+                    int s = 0;
                     foreach (P p in op.p)
                     {
-                        op.Procent = +p.Sum;
+                        s +=p.Sum;
                     }
+                    op.Procent = s / pr;
                 }
-                //if (op.p.Count != 0)
-                //{
-                //    //    int pr = op.Sum / 100;// 1%
-                //    //    int s = 0;
-                //    foreach (P p in op.p)
-                //    {
-                //       op.Procent= +p.Sum;
-                //    }
-                //    //op.Procent = s / pr;
-                //}
-                //else
-                //{
-                //    op.Procent = 0;
-                //}
-
+               
             }
             return View(operat);
         }
