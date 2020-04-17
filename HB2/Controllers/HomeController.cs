@@ -21,6 +21,26 @@ namespace HB.Controllers
         {
             db = user;
         }
+        [HttpGet]
+        public IActionResult OpAc()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult OpAc(P1 p1)
+        {
+            db.P1s.Add(p1);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult DelOp(int id)
+        {
+            Operation op = db.Operations.FirstOrDefault(p => p.Id == id);
+            db.Operations.Remove(op);
+            db.SaveChanges();
+            return RedirectToAction("OperPlan", new { id = op.PlanId });
+            
+        }
         public IActionResult Index()
         {
             IQueryable<Operation> operat = db.Operations.Include(c => c.p).Include(u=>u.Plan);
@@ -56,24 +76,12 @@ namespace HB.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public IActionResult MakeOp(int id)
-        {
-            Mod1 mod1 = new Mod1();
-            mod1.Id = id;
-            return View(mod1);
-        }
-        [HttpPost]
-        public IActionResult MakeOp(P p)
-        {
-            db.Ps.Add(p);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+       
         public IActionResult Plan()
         {
             IQueryable<Plan> pl = db.Plans.Include(c => c.User);
             pl = pl.Where(p => p.User.Email == User.Identity.Name);
+            pl = pl.Where(p => p.Data <= DateTime.Today && p.DataPeriod >= DateTime.Today);// только актульные планы
             return View(pl);
         }
 
@@ -86,8 +94,19 @@ namespace HB.Controllers
             pl._Id = id;
             return View(pl);
         }
-
-
+        [HttpGet]
+        public IActionResult RedactPlan(int id)
+        {
+            Plan pl = db.Plans.FirstOrDefault(p => p.Id == id);
+            return View(pl);
+        }
+        [HttpPost]
+        public IActionResult RedactPlan(Plan plan)
+        {
+            db.Plans.Update(plan);
+            db.SaveChanges();
+            return RedirectToAction("Plan");
+        }
         public IActionResult AddPlan()
         {
             return View();

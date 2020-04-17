@@ -1,10 +1,12 @@
-﻿@model HB2.Models.Operation
+﻿@model HB2.Models.P1
 @{
-    ViewBag.Title = "Редактирование Операции";
+    ViewBag.Title = "Добавление внеплановой операции";
 }
 <div class="container">
-    <form asp-action="RedactOper" asp-controller="home" id="Form1" asp-route-id="@Model.Id">
-        <input type="hidden" asp-for="PlanId" value=@Model.PlanId />
+    <form asp-action="OpAc" asp-controller="home" id="Form1">
+        <div>
+            <input type="hidden" asp-for="User.Email" value=@User.Identity.Name />
+        </div>
         <div class="form-group">
             <label asp-for="Name" class="control-label">Название</label>
             <input type="text" asp-for="Name" class="form-control" />
@@ -17,8 +19,12 @@
             </select>
         </div>
         <div class="form-group">
+            <label asp-for="Data" class="control-label">Дата</label>
+            <input type="datetime-local" asp-for="Data" class="form-control" />
+        </div>
+        <div class="form-group" id="divsum">
             <label asp-for="Sum" class="control-label">Сумма</label>
-            <input asp-for="Sum" type="number" class="form-control" />
+            <input type="number" asp-for="Sum" class="form-control" />
         </div>
         <div class="form-group">
             <label asp-for="Coment" class="control-label">Комент</label>
@@ -29,7 +35,4 @@
             <input type="submit" value="Сохранить" class="btn btn-default" />
         </div>
     </form>
-    <div>
-        <a asp-action="DelOp" asp-controller="home" asp-route-id="@Model.Id">Удалить</a>
-    </div>
 </div>

@@ -1,0 +1,24 @@
+﻿@model HB2.Models.Plan
+@{
+    ViewBag.Title = "Редактирование плана";
+}
+<div class="container">
+    <form asp-action="RedactPlan" asp-controller="home" asp-route-id="@Model.Id">
+        <input type="hidden" asp-for="UserId" value=@Model.UserId />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Название</label>
+            <input type="text" asp-for="Name" class="form-control" />
+        </div>
+        <div id="divdata">
+            <label asp-for="Data" class="control-label">Дата начала периода</label>
+            <input type="datetime-local" asp-for="Data" class="form-control"/>
+        </div>
+        <div>
+            <label asp-for="DataPeriod" class="control-label">Дата конца периода</label>
+            <input type="datetime-local" asp-for="DataPeriod" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </form>
+</div>

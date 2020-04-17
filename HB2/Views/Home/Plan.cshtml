@@ -16,7 +16,7 @@
             <tr><td>Название</td><td>Период выполнения</td><td>Процент выполнения</td></tr>
             @foreach (var i in Model)
             {
-                <tr><td>@i.Name</td><td>@i.Period</td><td>@i.Id</td><td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td></tr>
+                <tr><td>@i.Name</td><td>@i.Period</td><td>@i.Id</td><td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td><td><a asp-action="RedactPlan" asp-controller="Home" asp-route-id="@i.Id">Ред</a></td></tr>
             }
         </table>
     </div>

@@ -8,7 +8,7 @@ namespace HB2.Models
     public class Plan
     {
         public int Id { get; set; }
-
+        public int Procent { get; set; }
         public string Name { get; set; }
         private DateTime data;
         public DateTime Data

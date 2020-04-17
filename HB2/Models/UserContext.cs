@@ -13,6 +13,7 @@ namespace HB2.Models
         public DbSet<Plan> Plans { get; set; }
       
         public DbSet<P> Ps { get; set; }
+        public DbSet<P1> P1s { get; set; }
         public UserContext(DbContextOptions<UserContext> options)
             : base(options)
         {

@@ -11,10 +11,11 @@
             <tr><td>Операция</td><td>%</td><td>План</td><td>Действие</td><td>Сумма</td></tr>
             @foreach (var item in Model)
             {
-                <tr>
-                <td>@item.Name</td><td>@item.Procent</td><td>@item.Plan.Name</td><td>@item.NameAct</td>
+             <tr>  
+                <td><a asp-action="RedDelOp" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
+                <td>@item.Procent</td><td><a asp-action="OperPlan" asp-controller="Home" asp-route-id=@item.Id>@item.Plan.Name</a></td><td>@item.NameAct</td>
                 <td>@item.Sum</td><td><a asp-action="Make" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
-                <td><a>План</a></td><td><a>Удалить</a></td><td><a>Редактировать</a></td><td><a>Просмотр</a></td>
+                <td><a>Удалить</a></td><td><a>Редактировать</a></td><td><a>Просмотр</a></td>
             </tr>
             }
         </table>
