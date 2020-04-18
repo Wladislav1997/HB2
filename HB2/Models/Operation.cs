@@ -13,6 +13,7 @@ namespace HB2.Models
         public string Coment { get; set; }
         public int Sum { get; set; }
         public int Procent { get; set; }
+        public int SumP { get; set; }
 
         public int PlanId { get; set; }
         public Plan Plan { get; set; }

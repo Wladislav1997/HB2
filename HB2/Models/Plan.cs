@@ -9,6 +9,9 @@ namespace HB2.Models
     {
         public int Id { get; set; }
         public int Procent { get; set; }
+        public int DochMonth { get; set; }
+        public int RasMonth { get; set; }
+        public int RaznDochRas { get; set; }
         public string Name { get; set; }
         private DateTime data;
         public DateTime Data

@@ -41,26 +41,69 @@ namespace HB.Controllers
             return RedirectToAction("OperPlan", new { id = op.PlanId });
             
         }
+        public IActionResult DelPlan(int id)
+        {
+            Plan plan = db.Plans.FirstOrDefault(p => p.Id == id);
+            db.Plans.Remove(plan);
+            db.SaveChanges();
+            return RedirectToAction("Plan");
+
+        }
         public IActionResult Index()
         {
             IQueryable<Operation> operat = db.Operations.Include(c => c.p).Include(u=>u.Plan);
             operat = operat.Where(p => p.Plan.User.Email == User.Identity.Name);
-            operat = operat.Where(p => p.Plan.Data <= DateTime.Today && p.Plan.DataPeriod >= DateTime.Today);
+            operat = operat.Where(p => p.Plan.Data <= DateTime.Now && p.Plan.DataPeriod >= DateTime.Now);
             foreach(Operation op in operat)
             {
-                if (op.p != null)
+                int pr = op.Sum / 100;// 1%
+                int s = 0;
+                foreach (P p in op.p)
                 {
-                    int pr = op.Sum / 100;// 1%
-                    int s = 0;
-                    foreach (P p in op.p)
-                    {
-                        s +=p.Sum;
-                    }
-                    op.Procent = s / pr;
+                    s += p.Sum;
                 }
+                op.SumP = s;
+                op.Procent = s / pr;
+                db.Operations.Update(op);
                
             }
-            return View(operat);
+            db.SaveChanges();
+            Index_1 ind = new Index_1();
+            ind.operat = operat;
+           
+            //IQueryable<P> ps = db.Ps.Include(c => c.Operation);
+            //ps = ps.Where(p => p.Operation.Plan.User.Email == User.Identity.Name);// все совершонные плановые операции юзера
+
+            //IQueryable<P1> p1s = db.P1s.Include(c => c.User);
+            //p1s = p1s.Where(p => p.User.Email == User.Identity.Name);// все совершонные внеплановые операции юзера
+
+            //IQueryable<P> _ps = ps.Where(p => p.Operation.NameAct == "расход");
+            //foreach (P p in _ps)
+            //{
+            //    ind.RasMon += p.Sum;
+            //}
+
+            //IQueryable<P1> __ps = p1s.Where(p => p.NameAct == "расход");
+            //foreach (P1 p in __ps)
+            //{
+            //    ind.RasMon += p.Sum;
+            //}
+
+            //IQueryable<P> _psd = ps.Where(p => p.Operation.NameAct == "доход");
+            //foreach (P p in _psd)
+            //{
+            //    ind.DochMon += p.Sum;
+            //}
+
+            //IQueryable<P1> __psd = p1s.Where(p => p.NameAct == "доход");
+            //foreach (P1 p in __psd)
+            //{
+            //    ind.DochMon += p.Sum;
+            //}
+
+            //ind.RazDochRas = ind.DochMon - ind.RasMon;
+
+            return View(ind);
         }
         [HttpGet]
         public IActionResult Make(int id)
@@ -72,6 +115,7 @@ namespace HB.Controllers
         [HttpPost]
         public IActionResult Make(P p)
         {
+
             db.Ps.Add(p);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -79,9 +123,41 @@ namespace HB.Controllers
        
         public IActionResult Plan()
         {
-            IQueryable<Plan> pl = db.Plans.Include(c => c.User);
+            IQueryable<Plan> pl = db.Plans.Include(c => c.User).Include(u => u.Operations).ThenInclude(u => u.p);
             pl = pl.Where(p => p.User.Email == User.Identity.Name);
-            pl = pl.Where(p => p.Data <= DateTime.Today && p.DataPeriod >= DateTime.Today);// только актульные планы
+            pl = pl.Where(p => p.DataPeriod >= DateTime.Now);// только актульные планы дата окончания которых либо больше либо равна времени на компе
+            foreach(Plan p in pl)
+            {
+                int i = 0;
+                int t=0;
+                int ras = 0;
+                int doch = 0;
+                foreach(Operation op in p.Operations)
+                {
+                    if (op.NameAct == "доход")
+                    {
+                        doch += op.SumP;
+                    }
+                    else
+                    {
+                        ras += op.SumP;
+                    }
+                    i += op.Procent;
+                    t++;
+                }
+                p.RasMonth = ras;
+                p.DochMonth = doch;
+                p.RaznDochRas = doch - ras;
+                if (i != 0)
+                {
+                    p.Procent = i / t;
+                }
+                else
+                {
+                    p.Procent = 0;
+                }
+            }
+
             return View(pl);
         }
 

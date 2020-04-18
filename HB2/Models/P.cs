@@ -10,6 +10,7 @@ namespace HB2.Models
         public int Id { get; set; }
         public int Sum { get; set; }
         public string Coment { get; set; }
+        public DateTime Data { get; set; }
 
         public Operation Operation { get; set; }
         public int OperationId { get; set; }

@@ -1,26 +1,32 @@
-﻿@model IEnumerable<HB2.Models.Operation>
+﻿@model HB2.ViewModels.Index_1
 @{
     ViewBag.Title = "Главная";
 }
 
-<div class="container">
-    <div id="data1"></div>
-    <div>
-        <h5>Планируемые действия</h5>
-        <table class="table">
-            <tr><td>Операция</td><td>%</td><td>План</td><td>Действие</td><td>Сумма</td></tr>
-            @foreach (var item in Model)
-            {
-             <tr>  
-                <td><a asp-action="RedDelOp" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
-                <td>@item.Procent</td><td><a asp-action="OperPlan" asp-controller="Home" asp-route-id=@item.Id>@item.Plan.Name</a></td><td>@item.NameAct</td>
-                <td>@item.Sum</td><td><a asp-action="Make" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
-                <td><a>Удалить</a></td><td><a>Редактировать</a></td><td><a>Просмотр</a></td>
+    <div class="container">
+        <div id="data1"></div>
+        <div>@Model.DochMon</div>
+        <div>@Model.RasMon</div>
+        <div>@Model.RazDochRas</div>
+        <div>
+            <h5>Планируемые действия</h5>
+            <table class="table">
+                <tr><td>Операция</td><td>%</td><td>План</td><td>Действие</td><td>Сумма</td></tr>
+                @foreach (var item in Model.operat)
+                {
+            <tr>
+                <td><a asp-action="RedDelOp" asp-controller="Home" asp-route-id=@item.Id>@item.Name</a></td>
+                <td>@item.SumP</td>
+                <td>@item.Procent</td>
+                <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id=@item.Id>@item.Plan.Name</a></td>
+                <td>@item.NameAct</td>
+                <td>@item.Sum</td>
+                <td><a asp-action="Make" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
             </tr>
-            }
-        </table>
+                }
+            </table>
+        </div>
     </div>
-</div>
 <script>
     var d=new Date();
     var days = ["Вс", "Пн", "Вт", "Ср", "Чт", "ПТ", "Сб"];

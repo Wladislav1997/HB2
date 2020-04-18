@@ -10,6 +10,7 @@ namespace HB2.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public int Id { get; set; }
+       
 
         public List<P1> P1s { get; set; }
         public List<Plan> Plans { get; set; }

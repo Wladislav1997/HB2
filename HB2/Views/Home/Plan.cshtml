@@ -13,10 +13,24 @@
 
         <table class="table">
 
-            <tr><td>Название</td><td>Период выполнения</td><td>Процент выполнения</td></tr>
+            <tr><td>Название</td><td>Дата начала</td><td>Дата конца</td><td>Период</td><td>Процент</td><td>Доход</td><td>Расход</td><td>Итог</td></tr>
             @foreach (var i in Model)
             {
-                <tr><td>@i.Name</td><td>@i.Period</td><td>@i.Id</td><td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td><td><a asp-action="RedactPlan" asp-controller="Home" asp-route-id="@i.Id">Ред</a></td></tr>
+        <tr>
+            <td>@i.Name</td>
+            <td>@i.Data</td>
+            <td>@i.DataPeriod</td>
+            <td>@i.Period</td>
+            <td>@i.Procent</td>
+            <td>@i.DochMonth</td>
+            <td>-@i.RasMonth</td>
+            <td>@i.RaznDochRas</td>
+            <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td>
+            <td>
+                <a asp-action="DelPlan" asp-controller="Home" asp-route-id="@i.Id">Удалить</a>
+            </td>
+            <td><a asp-action="RedactPlan" asp-controller="Home" asp-route-id="@i.Id">Редактировать</a></td>
+        </tr>
             }
         </table>
     </div>
