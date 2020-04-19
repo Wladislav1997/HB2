@@ -5,8 +5,15 @@
 <div class="container">
     <form asp-action="Make" asp-controller="home">
         <input type="hidden" asp-for="p.OperationId" value=@Model.Id />
-
-        <div class="form-group" id="divsum">
+        <div class="form-group" >
+            <label asp-for="p.Name" class="control-label">Имя</label>
+            <input type="text" asp-for="p.Name" disabled="disabled" value=@Model.Operation.Name class="form-control"  />
+        </div>
+        <div class="form-group" >
+            <label asp-for="p.NameAct" class="control-label">Действие</label>
+            <input type="text" asp-for="p.NameAct" value=@Model.Operation.NameAct disabled="disabled" class="form-control"  />
+        </div>
+        <div class="form-group" >
             <label asp-for="p.Sum" class="control-label">Сумма</label>
             <input type="number" asp-for="p.Sum" class="form-control" />
         </div>

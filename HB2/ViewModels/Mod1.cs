@@ -10,5 +10,6 @@ namespace HB2.ViewModels
     {
         public int Id { get; set; }
         public P p { get; set; }
+        public Operation Operation { get; set; }
     }
 }

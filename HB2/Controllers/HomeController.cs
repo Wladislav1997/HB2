@@ -108,8 +108,10 @@ namespace HB.Controllers
         [HttpGet]
         public IActionResult Make(int id)
         {
+            Operation op = db.Operations.FirstOrDefault(p => p.Id == id);
             Mod1 mod1 = new Mod1();
             mod1.Id = id;
+            mod1.Operation = op;
             return View(mod1);
         }
         [HttpPost]
@@ -156,8 +158,9 @@ namespace HB.Controllers
                 {
                     p.Procent = 0;
                 }
+                db.Plans.Update(p);
             }
-
+            db.SaveChanges();
             return View(pl);
         }
 
@@ -549,6 +552,11 @@ namespace HB.Controllers
 
         }
 
+        public  IActionResult Oper()
+        {
+            //IQueryable<Operation> ops=db.Operations.Include
+            return View();
+        }
 
 
     }
