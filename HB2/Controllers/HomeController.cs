@@ -552,12 +552,21 @@ namespace HB.Controllers
 
         }
 
-        public  IActionResult Oper()
+        public IActionResult SovOper(int id)
         {
-            //IQueryable<Operation> ops=db.Operations.Include
-            return View();
+            IQueryable<P> ps = db.Ps.Include(c => c.Operation);
+            ps = ps.Where(p => p.OperationId == id);
+            RedactPl pl = new RedactPl();
+            pl.ps = ps;
+            Operation op = db.Operations.FirstOrDefault(p => p.Id == id);
+            pl._Id = op.PlanId;
+            return View(pl);
         }
-
-
+        public IActionResult SovOpInd(int id)
+        {
+            IQueryable<P> ps = db.Ps.Include(c => c.Operation);
+            ps = ps.Where(p => p.OperationId == id);
+            return View(ps);
+        }
     }
 }

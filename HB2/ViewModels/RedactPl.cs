@@ -10,5 +10,6 @@ namespace HB2.ViewModels
     {
         public int _Id { get; set; }
         public IQueryable<Operation> Opers { get; set; }
+        public IQueryable<P> ps { get; set; }
     }
 }

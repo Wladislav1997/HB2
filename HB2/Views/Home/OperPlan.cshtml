@@ -13,14 +13,20 @@
         <h5>Операции</h5>
         <table class="table">
 
-            <tr><td>Название</td><td>Период выполнения</td><td>Процент выполнения</td></tr>
+            <tr><td>Название</td><td>Действие</td><td>Плановая сумма</td><td>Реальная сумма</td><td>Процент</td></tr>
             @foreach (var i in Model.Opers)
             {
-             <tr>
-                    <td>@i.Name</td><td>@i.NameAct</td><td>@i.Sum</td><td>@i.PlanId</td>
-            <td><a asp-action="RedactOper" asp-controller="Home" asp-route-id=@i.Id>Редактировать операцию</a></td>
-            
-            </tr>
+        <tr>
+            <td>@i.Name</td>
+            <td>@i.NameAct</td>
+            <td>@i.Sum</td>
+            <td>@i.SumP</td>
+            <td>@i.Procent</td>
+            <td><a asp-action="SovOper" asp-controller="Home" asp-route-id=@i.Id>Совершонные</a></td>
+            <td><a asp-action="RedactOper" asp-controller="Home" asp-route-id=@i.Id>Редактировать</a></td>
+            <td><a asp-action="DelOp" asp-controller="Home" asp-route-id=@i.Id>Удалить</a></td>
+
+        </tr>
             }
         </table>
     </div>

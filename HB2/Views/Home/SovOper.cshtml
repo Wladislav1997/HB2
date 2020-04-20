@@ -1,0 +1,25 @@
+﻿@model HB2.ViewModels.RedactPl
+@{
+    ViewBag.Title = "Совершонные Операции";
+}
+
+
+<div class="container">
+    <div><a asp-action="OperPlan" asp-controller="home" asp-route-id=@Model._Id >Операции</a></div>
+    <div>
+        <h5>Совершонные Операции</h5>
+        <table class="table">
+
+            <tr><td>Название</td><td>Действие</td><td>Дата</td><td>Сумма</td></tr>
+            @foreach (var i in Model.ps)
+            {
+                <tr>
+                    <td>@i.Name</td>
+                    <td>@i.NameAct</td>
+                    <td>@i.Data</td>
+                    <td>@i.Sum</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
