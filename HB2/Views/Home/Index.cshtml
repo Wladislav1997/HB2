@@ -8,19 +8,19 @@
         <div>
             <h5>Планируемые действия</h5>
             <table class="table">
-                <tr><td>Операция</td><td>%</td><td>План</td><td>Действие</td><td>Сумма</td></tr>
+                <tr><td>Название</td><td>Действие</td><td>План</td><td>Планируемая сумма</td><td>Реальная сумма</td><td>%</td><td></td><td></td></tr>
                @foreach (var item in Model.operat)
                 {
-                       <tr>
-                             <td><a asp-action="RedDelOp" asp-controller="Home" asp-route-id=@item.Id>@item.Name</a></td>
-                             <td>@item.SumP</td>
-                             <td>@item.Procent</td>
-                             <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id=@item.Id>@item.Plan.Name</a></td>
-                             <td>@item.NameAct</td>
-                             <td>@item.Sum</td>
-                             <td><a asp-action="Make" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
-                             <td><a asp-action="SovOpInd" asp-controller="Home" asp-route-id=@item.Id>Cовершонные</a></td>
-                       </tr>
+            <tr>
+                <td><a asp-action="RedDelOp" asp-controller="Home" asp-route-id=@item.Id>@item.Name</a></td>
+                <td>@item.NameAct</td>
+                <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id=@item.PlanId>@item.Plan.Name</a></td>
+                <td>@item.Sum</td>
+                <td>@item.SumP</td>
+                <td>@item.Procent</td>
+                <td><a asp-action="Make" asp-controller="Home" asp-route-id=@item.Id>Совершить</a></td>
+                <td><a asp-action="SovOpInd" asp-controller="Home" asp-route-id=@item.Id>Cовершонные</a></td>
+            </tr>
                 }
             </table>
         </div>

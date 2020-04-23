@@ -1,0 +1,154 @@
+﻿@model HB2.ViewModels.ArchPl
+@{
+    ViewBag.Title = "Поиск плана";
+}
+<div class="container">
+    <div class="row">
+
+        <div class="col-4">
+            <form asp-action="ArchPl" asp-controller="home">
+                <h5>Поиск</h5>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Название</label>
+                    <input type="text" asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Доход</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="mindoch">от</label>
+                    <div class="col">
+                        <input type="number" asp-for="mindoch" class="form-control" value="0">
+                    </div>
+                    <label class="col-form-label" asp-for="maxdoch">до</label>
+                    <div class="col">
+                        <input type="number" asp-for="maxdoch" class="form-control" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Расход</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="minras">от</label>
+                    <div class="col">
+                        <input type="number" asp-for="minras" class="form-control" value="0">
+                    </div>
+                    <label class="col-form-label" asp-for="maxras">до</label>
+                    <div class="col">
+                        <input type="number" asp-for="maxras" class="form-control" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Итог</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="minit">от</label>
+                    <div class="col">
+                        <input type="number" asp-for="minit" class="form-control" value="0">
+                    </div>
+                    <label class="col-form-label" asp-for="maxit">до</label>
+                    <div class="col">
+                        <input type="number" asp-for="maxit" class="form-control" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Процент</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="minpr">от</label>
+                    <div class="col">
+                        <input type="number" asp-for="minpr" class="form-control" value="0">
+                    </div>
+                    <label class="col-form-label" asp-for="maxpr">до</label>
+                    <div class="col">
+                        <input type="number" asp-for="maxpr" class="form-control" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Дата начала периода</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="mind">от</label>
+                    <div class="col-5">
+                        <input type="datetime-local" asp-for="mind" class="form-control" value="2000-01-01T00:00">
+                    </div>
+                    <label class="col-form-label" asp-for="maxd">до</label>
+                    <div class="col-5">
+                        <input type="datetime-local" asp-for="maxd" class="form-control" value="2000-01-01T00:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Дата конца периода</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="mindp">от</label>
+                    <div class="col-5">
+                        <input type="datetime-local" asp-for="mindp" class="form-control" value="2000-01-01T00:00">
+                    </div>
+                    <label class="col-form-label" asp-for="maxdp">до</label>
+                    <div class="col-5">
+                        <input type="datetime-local" asp-for="maxdp" class="form-control" value="2000-01-01T00:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Период плана</label>
+                </div>
+                <div class="form-row">
+                    <div class="col">от</div>
+                    <div class="col">
+                        <label asp-for="Days" class="control-label">День</label>
+                        <input type="number" asp-for="Days" class="form-control" value="0" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Clock" class="control-label">Час</label>
+                        <input type="number" asp-for="Clock" class="form-control" value="0" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="Min" class="control-label">Минута</label>
+                        <input type="number" asp-for="Min" class="form-control" value="0" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">до</div>
+                    <div class="col">
+                        <label asp-for="_Days" class="control-label">День</label>
+                        <input type="number" asp-for="_Days" class="form-control" value="0" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="_Clock" class="control-label">Час</label>
+                        <input type="number" asp-for="_Clock" class="form-control" value="0" />
+                    </div>
+                    <div class="col">
+                        <label asp-for="_Min" class="control-label">Минута</label>
+                        <input type="number" asp-for="_Min" class="form-control" value="0" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Поиск" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+        <div class="col-8">
+            <h5>Результат поиска</h5>
+            <table class="table">
+
+                <tr><td>Название</td><td>Дата начала</td><td>Дата конца</td><td>Период</td><td>Процент</td><td>Доход</td><td>Расход</td><td>Итог</td><td></td></tr>
+                @foreach (var i in Model.pl)
+                {
+                    <tr>
+                        <td>@i.Name</td>
+                        <td>@i.Data</td>
+                        <td>@i.DataPeriod</td>
+                        <td>@i.Period</td>
+                        <td>@i.Procent</td>
+                        <td>@i.DochMonth</td>
+                        <td>-@i.RasMonth</td>
+                        <td>@i.RaznDochRas</td>
+                        <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td>
+                        
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

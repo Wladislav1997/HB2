@@ -227,329 +227,9 @@ namespace HB.Controllers
             return RedirectToAction("OperPlan", new { id = op.PlanId });
         }
 
-        public IActionResult Filter(Operation operation)
+        public IActionResult Filter()
         {
-            IQueryable<Operation> oper = db.Operations.Include(c => c.Plan.User);
-            oper = oper.Where(p => p.Plan.User.Email == User.Identity.Name);
-            oper = oper.Where(a => a.NameAct == operation.NameAct);
-            //if (operation.Name != null)
-            //{
-            //    oper = oper.Where(a => a.Name == operation.Name);
-
-            //    if (operation.Data != null)
-            //    {
-            //        oper = oper.Where(a => a.Data == operation.Data);
-            //        if (operation.View != null)
-            //        {
-            //            oper = oper.Where(a => a.View == operation.View);
-            //            if (operation.Type != null)
-            //            {
-            //                oper = oper.Where(a => a.Type == operation.Type);
-            //                if (operation.Sum != null)
-            //                {
-            //                    oper = oper.Where(a => a.Sum == operation.Sum);
-            //                    if (operation.Coment != null)
-            //                    {
-            //                        oper = oper.Where(a => a.Coment == operation.Coment);
-            //                        return View(oper);
-            //                    }
-            //                    return View(oper);
-            //                }
-            //                if (operation.Coment != null)
-            //                {
-            //                    oper = oper.Where(a => a.Coment == operation.Coment);
-            //                    return View(oper);
-            //                }
-            //                return View(oper);
-            //            }
-            //            if (operation.Sum != null)
-            //            {
-            //                oper = oper.Where(a => a.Sum == operation.Sum);
-            //                if (operation.Coment != null)
-            //                {
-            //                    oper = oper.Where(a => a.Coment == operation.Coment);
-            //                    return View(oper);
-            //                }
-            //                return View(oper);
-            //            }
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Type != null)
-            //        {
-            //            oper = oper.Where(a => a.Type == operation.Type);
-            //            if (operation.Sum != null)
-            //            {
-            //                oper = oper.Where(a => a.Sum == operation.Sum);
-            //                if (operation.Coment != null)
-            //                {
-            //                    oper = oper.Where(a => a.Coment == operation.Coment);
-            //                    return View(oper);
-            //                }
-            //                return View(oper);
-            //            }
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Sum != null)
-            //        {
-            //            oper = oper.Where(a => a.Sum == operation.Sum);
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.View != null)
-            //    {
-            //        oper = oper.Where(a => a.View == operation.View);
-            //        if (operation.Type != null)
-            //        {
-            //            oper = oper.Where(a => a.Type == operation.Type);
-            //            if (operation.Sum != null)
-            //            {
-            //                oper = oper.Where(a => a.Sum == operation.Sum);
-            //                if (operation.Coment != null)
-            //                {
-            //                    oper = oper.Where(a => a.Coment == operation.Coment);
-            //                    return View(oper);
-            //                }
-            //                return View(oper);
-            //            }
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Sum != null)
-            //        {
-            //            oper = oper.Where(a => a.Sum == operation.Sum);
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Type != null)
-            //    {
-            //        oper = oper.Where(a => a.Type == operation.Type);
-            //        if (operation.Sum != null)
-            //        {
-            //            oper = oper.Where(a => a.Sum == operation.Sum);
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Sum != null)
-            //    {
-            //        oper = oper.Where(a => a.Sum == operation.Sum);
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Coment != null)
-            //    {
-            //        oper = oper.Where(a => a.Coment == operation.Coment);
-            //        return View(oper);
-            //    }
-            //    return View(oper);
-            //}
-            //if (operation.Data != null)
-            //{
-            //    oper = oper.Where(a => a.Data == operation.Data);
-            //    if (operation.View != null)
-            //    {
-            //        oper = oper.Where(a => a.View == operation.View);
-            //        if (operation.Type != null)
-            //        {
-            //            oper = oper.Where(a => a.Type == operation.Type);
-            //            if (operation.Sum != null)
-            //            {
-            //                oper = oper.Where(a => a.Sum == operation.Sum);
-            //                if (operation.Coment != null)
-            //                {
-            //                    oper = oper.Where(a => a.Coment == operation.Coment);
-            //                    return View(oper);
-            //                }
-            //                return View(oper);
-            //            }
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Sum != null)
-            //        {
-            //            oper = oper.Where(a => a.Sum == operation.Sum);
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Type != null)
-            //    {
-            //        oper = oper.Where(a => a.Type == operation.Type);
-            //        if (operation.Sum != null)
-            //        {
-            //            oper = oper.Where(a => a.Sum == operation.Sum);
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Sum != null)
-            //    {
-            //        oper = oper.Where(a => a.Sum == operation.Sum);
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Coment != null)
-            //    {
-            //        oper = oper.Where(a => a.Coment == operation.Coment);
-            //        return View(oper);
-            //    }
-            //    return View(oper);
-            //}
-            //if (operation.View != null)
-            //{
-            //    oper = oper.Where(a => a.View == operation.View);
-            //    if (operation.Type != null)
-            //    {
-            //        oper = oper.Where(a => a.Type == operation.Type);
-            //        if (operation.Sum != null)
-            //        {
-            //            oper = oper.Where(a => a.Sum == operation.Sum);
-            //            if (operation.Coment != null)
-            //            {
-            //                oper = oper.Where(a => a.Coment == operation.Coment);
-            //                return View(oper);
-            //            }
-            //            return View(oper);
-            //        }
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Sum != null)
-            //    {
-            //        oper = oper.Where(a => a.Sum == operation.Sum);
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Coment != null)
-            //    {
-            //        oper = oper.Where(a => a.Coment == operation.Coment);
-            //        return View(oper);
-            //    }
-            //    return View(oper);
-            //}
-            //if (operation.Type != null)
-            //{
-            //    oper = oper.Where(a => a.Type == operation.Type);
-            //    if (operation.Sum != null)
-            //    {
-            //        oper = oper.Where(a => a.Sum == operation.Sum);
-            //        if (operation.Coment != null)
-            //        {
-            //            oper = oper.Where(a => a.Coment == operation.Coment);
-            //            return View(oper);
-            //        }
-            //        return View(oper);
-            //    }
-            //    if (operation.Coment != null)
-            //    {
-            //        oper = oper.Where(a => a.Coment == operation.Coment);
-            //        return View(oper);
-            //    }
-            //    return View(oper);
-            //}
-            //if (operation.Sum != null)
-            //{
-            //    oper = oper.Where(a => a.Sum == operation.Sum);
-            //    if (operation.Coment != null)
-            //    {
-            //        oper = oper.Where(a => a.Coment == operation.Coment);
-            //        return View(oper);
-            //    }
-            //    return View(oper);
-            //}
-            //if (operation.Coment != null)
-            //{
-            //    oper = oper.Where(a => a.Coment == operation.Coment);
-            //    return View(oper);
-            //}
-            return View(oper);
-
+            return View();
         }
 
         public IActionResult SovOper(int id)
@@ -567,6 +247,1567 @@ namespace HB.Controllers
             IQueryable<P> ps = db.Ps.Include(c => c.Operation);
             ps = ps.Where(p => p.OperationId == id);
             return View(ps);
+        }
+        [HttpGet]
+        public IActionResult RedDelOp(int id)
+        {
+            Operation op = db.Operations.FirstOrDefault(p => p.Id == id);
+            return View(op);
+        }
+        [HttpPost]
+        public IActionResult RedDelOp(Operation op)
+        {
+            return View();
+        }
+        public IActionResult DelOpInd(int id)
+        {
+            Operation op = db.Operations.FirstOrDefault(p => p.Id == id);
+            db.Operations.Remove(op);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult ArchPl(ArchPl apl)
+        {
+            TimeSpan minper = new TimeSpan(apl.Days,apl.Clock,apl.Min,0);
+            TimeSpan maxper = new TimeSpan(apl._Days, apl._Clock, apl._Min, 0);
+            TimeSpan per = new TimeSpan(0, 0, 0, 0);
+            DateTime date = new DateTime(2000, 1, 1, 0, 0,0);
+            IQueryable<Plan> pl = db.Plans.Include(c => c.User);
+            pl = pl.Where(p => p.User.Email == User.Identity.Name);
+            pl = pl.Where(a => a.DataPeriod < DateTime.Now);
+            ArchPl ap = new ArchPl();
+            if (apl.Name != null)
+            {
+                pl = pl.Where(a => a.Name == apl.Name);
+                if (apl.mindoch != 0 && apl.maxdoch!=0)
+                {
+                    pl = pl.Where(p => p.DochMonth >= apl.mindoch && p.DochMonth <= apl.maxdoch);
+                    if (apl.minras != 0 && apl.maxras != 0)
+                    {
+                        pl = pl.Where(p => p.RasMonth >= apl.minras && p.RasMonth <= apl.maxras);
+                        if (apl.minit != 0 && apl.maxit != 0)
+                        {
+                            pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                            if (apl.minpr != 0 && apl.maxpr != 0)
+                            {
+                                pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                                if (apl.mind != date && apl.maxd != date)
+                                {
+                                    pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                                    if (apl.mindp != date && apl.maxdp != date)
+                                    {
+                                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                        if (minper != per && maxper != per)
+                                        {
+                                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                            ap.pl = pl;
+                                            return View(ap);
+                                        }
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (apl.mindp != date && apl.maxdp != date)
+                                {
+                                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (apl.mind != date && apl.maxd != date)
+                            {
+                                pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                                if (apl.mindp != date && apl.maxdp != date)
+                                {
+                                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.minpr != 0 && apl.maxpr != 0)
+                        {
+                            pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                            if (apl.mind != date && apl.maxd != date)
+                            {
+                                pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                                if (apl.mindp != date && apl.maxdp != date)
+                                {
+                                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.minit != 0 && apl.maxit != 0)
+                    {
+                        pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                        if (apl.minpr != 0 && apl.maxpr != 0)
+                        {
+                            pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                            if (apl.mind != date && apl.maxd != date)
+                            {
+                                pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                                if (apl.mindp != date && apl.maxdp != date)
+                                {
+                                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.minpr != 0 && apl.maxpr != 0)
+                    {
+                        pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.minras != 0 && apl.maxras != 0)
+                {
+                    pl = pl.Where(p => p.RasMonth >= apl.minras && p.RasMonth <= apl.maxras);
+                    if (apl.minit != 0 && apl.maxit != 0)
+                    {
+                        pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                        if (apl.minpr != 0 && apl.maxpr != 0)
+                        {
+                            pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                            if (apl.mind != date && apl.maxd != date)
+                            {
+                                pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                                if (apl.mindp != date && apl.maxdp != date)
+                                {
+                                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.minpr != 0 && apl.maxpr != 0)
+                    {
+                        pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.minit != 0 && apl.maxit != 0)
+                {
+                    pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                    if (apl.minpr != 0 && apl.maxpr != 0)
+                    {
+                        pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.minpr != 0 && apl.maxpr != 0)
+                {
+                    pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mind != date && apl.maxd != date)
+                {
+                    pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mindp != date && apl.maxdp != date)
+                {
+                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (apl.mindoch != 0 && apl.maxdoch != 0)
+            {
+                pl = pl.Where(p => p.DochMonth >= apl.mindoch && p.DochMonth <= apl.maxdoch);
+                if (apl.minras != 0 && apl.maxras != 0)
+                {
+                    pl = pl.Where(p => p.RasMonth >= apl.minras && p.RasMonth <= apl.maxras);
+                    if (apl.minit != 0 && apl.maxit != 0)
+                    {
+                        pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                        if (apl.minpr != 0 && apl.maxpr != 0)
+                        {
+                            pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                            if (apl.mind != date && apl.maxd != date)
+                            {
+                                pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                                if (apl.mindp != date && apl.maxdp != date)
+                                {
+                                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                    if (minper != per && maxper != per)
+                                    {
+                                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                        ap.pl = pl;
+                                        return View(ap);
+                                    }
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.minpr != 0 && apl.maxpr != 0)
+                    {
+                        pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.minit != 0 && apl.maxit != 0)
+                {
+                    pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                    if (apl.minpr != 0 && apl.maxpr != 0)
+                    {
+                        pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.minpr != 0 && apl.maxpr != 0)
+                {
+                    pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mind != date && apl.maxd != date)
+                {
+                    pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mindp != date && apl.maxdp != date)
+                {
+                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (apl.minras != 0 && apl.maxras != 0)
+            {
+                pl = pl.Where(p => p.RasMonth >= apl.minras && p.RasMonth <= apl.maxras);
+                if (apl.minit != 0 && apl.maxit != 0)
+                {
+                    pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                    if (apl.minpr != 0 && apl.maxpr != 0)
+                    {
+                        pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                        if (apl.mind != date && apl.maxd != date)
+                        {
+                            pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                            if (apl.mindp != date && apl.maxdp != date)
+                            {
+                                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                                if (minper != per && maxper != per)
+                                {
+                                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                    ap.pl = pl;
+                                    return View(ap);
+                                }
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.minpr != 0 && apl.maxpr != 0)
+                {
+                    pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mind != date && apl.maxd != date)
+                {
+                    pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mindp != date && apl.maxdp != date)
+                {
+                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (apl.minit != 0 && apl.maxit != 0)
+            {
+                pl = pl.Where(p => p.RaznDochRas >= apl.minit && p.RaznDochRas <= apl.maxit);
+                if (apl.minpr != 0 && apl.maxpr != 0)
+                {
+                    pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                    if (apl.mind != date && apl.maxd != date)
+                    {
+                        pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                        if (apl.mindp != date && apl.maxdp != date)
+                        {
+                            pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                            if (minper != per && maxper != per)
+                            {
+                                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                                ap.pl = pl;
+                                return View(ap);
+                            }
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mind != date && apl.maxd != date)
+                {
+                    pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mindp != date && apl.maxdp != date)
+                {
+                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (apl.minpr != 0 && apl.maxpr != 0)
+            {
+                pl = pl.Where(p => p.Procent >= apl.minpr && p.Procent <= apl.maxpr);
+                if (apl.mind != date && apl.maxd != date)
+                {
+                    pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                    if (apl.mindp != date && apl.maxdp != date)
+                    {
+                        pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                        if (minper != per && maxper != per)
+                        {
+                            pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                            ap.pl = pl;
+                            return View(ap);
+                        }
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (apl.mindp != date && apl.maxdp != date)
+                {
+                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (apl.mind != date && apl.maxd != date)
+            {
+                pl = pl.Where(p => p.Data >= apl.mind && p.Data <= apl.maxd);
+                if (apl.mindp != date && apl.maxdp != date)
+                {
+                    pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                    if (minper != per && maxper != per)
+                    {
+                        pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                        ap.pl = pl;
+                        return View(ap);
+                    }
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (apl.mindp != date && apl.maxdp != date)
+            {
+                pl = pl.Where(p => p.DataPeriod >= apl.mindp && p.DataPeriod <= apl.maxdp);
+                if (minper != per && maxper != per)
+                {
+                    pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                    ap.pl = pl;
+                    return View(ap);
+                }
+                ap.pl = pl;
+                return View(ap);
+            }
+            if (minper != per && maxper != per)
+            {
+                pl = pl.Where(p => p.Period >= minper && p.Period <= maxper);
+                ap.pl = pl;
+                return View(ap);
+            }
+            ap.pl = pl;
+            return View(ap);
         }
     }
 }
