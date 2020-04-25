@@ -1,0 +1,70 @@
+﻿@model HB2.ViewModels.ArchOpAcPl
+@{
+    ViewBag.Title = "Поиск операции";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <h5>Поиск</h5>
+            <form asp-action="ArchOpAcPl" asp-controller="home">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Название</label>
+                    <input type="text" asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="NameAct" class="control-label">Действие</label>
+                    <select asp-for="NameAct" class="form-control">
+                        <option value="расход">расход</option>
+                        <option value="доход">доход</option>
+                        <option selected value="ноль"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Сумма</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="minsum">от</label>
+                    <div class="col">
+                        <input type="number" asp-for="minsum" class="form-control" value="0">
+                    </div>
+                    <label class="col-form-label" asp-for="maxsum">до</label>
+                    <div class="col">
+                        <input type="number" asp-for="maxsum" class="form-control" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Дата</label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label" asp-for="StData">от</label>
+                    <div class="col-5">
+                        <input type="datetime-local" asp-for="StData" class="form-control" value="2000-01-01T00:00">
+                    </div>
+                    <label class="col-form-label" asp-for="FinData">до</label>
+                    <div class="col-5">
+                        <input type="datetime-local" asp-for="FinData" class="form-control" value="2000-01-01T00:00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Поиск" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+        <div class="col-8">
+            <h5>Результат поиска</h5>
+            <table class="table">
+                <tr><td>Название</td><td>Действие</td><td>Сумма</td><td>Дата</td><td>Процент</td><td></td></tr>
+                @foreach (var i in Model.PS)
+                 {
+                    <tr>
+                        <td>@i.Name</td>
+                        <td>@i.NameAct</td>
+                        <td>@i.Sum</td>
+                        <td>@i.Data</td>
+                        <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td>
+                    </tr>
+                 }
+            </table>
+        </div>
+    </div>
+</div>

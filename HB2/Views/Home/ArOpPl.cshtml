@@ -1,0 +1,26 @@
+﻿@model IQueryable<HB2.Models.Operation>
+@{
+    ViewBag.Title = "Операции";
+}
+
+<div class="container">
+
+    <div>
+        <h5>Планируемые действия</h5>
+        <table class="table">
+            <tr><td>Название</td><td>Действие</td><td>Планируемая сумма</td><td>Реальная сумма</td><td>%</td><td></td></tr>
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.NameAct</td>
+            <td>@item.Sum</td>
+            <td>@item.SumP</td>
+            <td>@item.Procent</td>
+            <td><a asp-action="RealOp" asp-controller="Home" asp-route-id=@item.Id>Просмотр</a></td>
+            <td><a asp-action="RealOp" asp-controller="Home" asp-route-id=@item.Id>Совершонные</a></td>
+        </tr>
+            }
+        </table>
+    </div>
+</div>

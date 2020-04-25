@@ -3,13 +3,16 @@
 }
     <div class="container">
         <div class="row">
-            <div class="col-2"><a asp-action="ArchPl" asp-controller="home">Планы</a></div>
+            <div class="col-3"><a asp-action="ArchPl" asp-controller="home">Планы</a></div>
         </div>
         <div class="row">
-            <div class="col-2"><a asp-action="ArchOp" asp-controller="home">Операции</a></div>
+            <div class="col-3"><a asp-action="ArchOp" asp-controller="home">Операции</a></div>
         </div>
         <div class="row">
-            <div class="col-3"><a asp-action="ArchOpAc" asp-controller="home">Совершонные операции</a></div>
+            <div><a asp-action="ArchOpAcPl" asp-controller="home">Плановые совершонные операции</a></div>
+        </div>
+        <div class="row">
+            <div class="col-3"><a asp-action="ArchOpAc" asp-controller="home">Внеплановые совершонные операции</a></div>
         </div>
     </div>
   

@@ -5,7 +5,7 @@
 
 
 <div class="container">
-    <div><a asp-action="OperPlan" asp-controller="home" asp-route-id=@Model._Id >Операции</a></div>
+    <a asp-action="Make" asp-controller="home"  asp-route-id=@Model._Id class="btn btn-outline-success btn-sm active" role="button" aria-pressed="true">Добавить</a>
     <div>
         <h5>Совершонные Операции</h5>
         <table class="table">

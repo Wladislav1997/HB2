@@ -70,39 +70,6 @@ namespace HB.Controllers
             db.SaveChanges();
             Index_1 ind = new Index_1();
             ind.operat = operat;
-           
-            //IQueryable<P> ps = db.Ps.Include(c => c.Operation);
-            //ps = ps.Where(p => p.Operation.Plan.User.Email == User.Identity.Name);// все совершонные плановые операции юзера
-
-            //IQueryable<P1> p1s = db.P1s.Include(c => c.User);
-            //p1s = p1s.Where(p => p.User.Email == User.Identity.Name);// все совершонные внеплановые операции юзера
-
-            //IQueryable<P> _ps = ps.Where(p => p.Operation.NameAct == "расход");
-            //foreach (P p in _ps)
-            //{
-            //    ind.RasMon += p.Sum;
-            //}
-
-            //IQueryable<P1> __ps = p1s.Where(p => p.NameAct == "расход");
-            //foreach (P1 p in __ps)
-            //{
-            //    ind.RasMon += p.Sum;
-            //}
-
-            //IQueryable<P> _psd = ps.Where(p => p.Operation.NameAct == "доход");
-            //foreach (P p in _psd)
-            //{
-            //    ind.DochMon += p.Sum;
-            //}
-
-            //IQueryable<P1> __psd = p1s.Where(p => p.NameAct == "доход");
-            //foreach (P1 p in __psd)
-            //{
-            //    ind.DochMon += p.Sum;
-            //}
-
-            //ind.RazDochRas = ind.DochMon - ind.RasMon;
-
             return View(ind);
         }
         [HttpGet]
@@ -239,7 +206,7 @@ namespace HB.Controllers
             RedactPl pl = new RedactPl();
             pl.ps = ps;
             Operation op = db.Operations.FirstOrDefault(p => p.Id == id);
-            pl._Id = op.PlanId;
+            pl._Id = op.Id;
             return View(pl);
         }
         public IActionResult SovOpInd(int id)
@@ -1809,5 +1776,961 @@ namespace HB.Controllers
             ap.pl = pl;
             return View(ap);
         }
+        public IActionResult ArchOp(ArchOp arop)
+        {
+            DateTime date = new DateTime(2000, 1, 1, 0, 0, 0);
+            IQueryable<Operation> op = db.Operations.Include(c => c.Plan);
+            op = op.Where(p => p.Plan.User.Email == User.Identity.Name);
+            op = op.Where(a => a.Plan.DataPeriod < DateTime.Now);
+            ArchOp ap = new ArchOp();
+            if (arop.Name != null)
+            {
+                op = op.Where(p => p.Name == arop.Name);
+                if (arop.NamePl != null)
+                {
+                    op = op.Where(p => p.Plan.Name == arop.NamePl);
+                    if (arop.StData != date && arop.FinData != date)
+                    {
+                        op = op.Where(p => p.Plan.Data >= arop.StData && p.Plan.DataPeriod <= arop.FinData);
+                        if (arop.NameAct != "ноль")
+                        {
+                            op = op.Where(p => p.NameAct == arop.NameAct);
+                            if (arop.minsum != 0 && arop.maxsum != 0)
+                            {
+                                op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                                if(arop.minsump != 0 && arop.maxsump != 0)
+                                {
+                                    op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                                    if (arop.minpr != 0 && arop.maxpr != 0)
+                                    {
+                                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                        ap.Operations = op;
+                                        return View(ap);
+                                    }
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                if (arop.minpr != 0 && arop.maxpr != 0)
+                                {
+                                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            if (arop.minsump != 0 && arop.maxsump != 0)
+                            {
+                                op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                                if (arop.minpr != 0 && arop.maxpr != 0)
+                                {
+                                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minsum != 0 && arop.maxsum != 0)
+                        {
+                            op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                            if (arop.minsump != 0 && arop.maxsump != 0)
+                            {
+                                op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                                if (arop.minpr != 0 && arop.maxpr != 0)
+                                {
+                                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.NameAct != "ноль")
+                    {
+                        op = op.Where(p => p.NameAct == arop.NameAct);
+                        if (arop.minsum != 0 && arop.maxsum != 0)
+                        {
+                            op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                            if (arop.minsump != 0 && arop.maxsump != 0)
+                            {
+                                op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                                if (arop.minpr != 0 && arop.maxpr != 0)
+                                {
+                                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsum != 0 && arop.maxsum != 0)
+                    {
+                        op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.StData != date && arop.FinData != date)
+                {
+                    op = op.Where(p => p.Plan.Data >= arop.StData && p.Plan.DataPeriod <= arop.FinData);
+                    if (arop.NameAct != "ноль")
+                    {
+                        op = op.Where(p => p.NameAct == arop.NameAct);
+                        if (arop.minsum != 0 && arop.maxsum != 0)
+                        {
+                            op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                            if (arop.minsump != 0 && arop.maxsump != 0)
+                            {
+                                op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                                if (arop.minpr != 0 && arop.maxpr != 0)
+                                {
+                                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsum != 0 && arop.maxsum != 0)
+                    {
+                        op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.NameAct != "ноль")
+                {
+                    op = op.Where(p => p.NameAct == arop.NameAct);
+                    if (arop.minsum != 0 && arop.maxsum != 0)
+                    {
+                        op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsum != 0 && arop.maxsum != 0)
+                {
+                    op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsump != 0 && arop.maxsump != 0)
+                {
+                    op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minpr != 0 && arop.maxpr != 0)
+                {
+                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                ap.Operations = op;
+                return View(ap);
+            }
+            if (arop.NamePl != null)
+            {
+                op = op.Where(p => p.Plan.Name == arop.NamePl);
+                if (arop.StData != date && arop.FinData != date)
+                {
+                    op = op.Where(p => p.Plan.Data >= arop.StData && p.Plan.DataPeriod <= arop.FinData);
+                    if (arop.NameAct != "ноль")
+                    {
+                        op = op.Where(p => p.NameAct == arop.NameAct);
+                        if (arop.minsum != 0 && arop.maxsum != 0)
+                        {
+                            op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                            if (arop.minsump != 0 && arop.maxsump != 0)
+                            {
+                                op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                                if (arop.minpr != 0 && arop.maxpr != 0)
+                                {
+                                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                    ap.Operations = op;
+                                    return View(ap);
+                                }
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsum != 0 && arop.maxsum != 0)
+                    {
+                        op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.NameAct != "ноль")
+                {
+                    op = op.Where(p => p.NameAct == arop.NameAct);
+                    if (arop.minsum != 0 && arop.maxsum != 0)
+                    {
+                        op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsum != 0 && arop.maxsum != 0)
+                {
+                    op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsump != 0 && arop.maxsump != 0)
+                {
+                    op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minpr != 0 && arop.maxpr != 0)
+                {
+                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                ap.Operations = op;
+                return View(ap);
+            }
+            if (arop.StData != date && arop.FinData != date)
+            {
+                op = op.Where(p => p.Plan.Data >= arop.StData && p.Plan.DataPeriod <= arop.FinData);
+                if (arop.NameAct != "ноль")
+                {
+                    op = op.Where(p => p.NameAct == arop.NameAct);
+                    if (arop.minsum != 0 && arop.maxsum != 0)
+                    {
+                        op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                        if (arop.minsump != 0 && arop.maxsump != 0)
+                        {
+                            op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                            if (arop.minpr != 0 && arop.maxpr != 0)
+                            {
+                                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                                ap.Operations = op;
+                                return View(ap);
+                            }
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsum != 0 && arop.maxsum != 0)
+                {
+                    op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsump != 0 && arop.maxsump != 0)
+                {
+                    op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minpr != 0 && arop.maxpr != 0)
+                {
+                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                ap.Operations = op;
+                return View(ap);
+            }
+            if (arop.NameAct != "ноль")
+            {
+                op = op.Where(p => p.NameAct == arop.NameAct);
+                if (arop.minsum != 0 && arop.maxsum != 0)
+                {
+                    op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                    if (arop.minsump != 0 && arop.maxsump != 0)
+                    {
+                        op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                        if (arop.minpr != 0 && arop.maxpr != 0)
+                        {
+                            op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                            ap.Operations = op;
+                            return View(ap);
+                        }
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minsump != 0 && arop.maxsump != 0)
+                {
+                    op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minpr != 0 && arop.maxpr != 0)
+                {
+                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                ap.Operations = op;
+                return View(ap);
+            }
+            if (arop.minsum != 0 && arop.maxsum != 0)
+            {
+                op = op.Where(p => p.Sum >= arop.minsum && p.Sum <= arop.maxsum);
+                if (arop.minsump != 0 && arop.maxsump != 0)
+                {
+                    op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                    if (arop.minpr != 0 && arop.maxpr != 0)
+                    {
+                        op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                        ap.Operations = op;
+                        return View(ap);
+                    }
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                if (arop.minpr != 0 && arop.maxpr != 0)
+                {
+                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                ap.Operations = op;
+                return View(ap);
+            }
+            if (arop.minsump != 0 && arop.maxsump != 0)
+            {
+                op = op.Where(p => p.SumP >= arop.minsump && p.SumP <= arop.maxsump);
+                if (arop.minpr != 0 && arop.maxpr != 0)
+                {
+                    op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                    ap.Operations = op;
+                    return View(ap);
+                }
+                ap.Operations = op;
+                return View(ap);
+            }
+            if (arop.minpr != 0 && arop.maxpr != 0)
+            {
+                op = op.Where(p => p.Procent >= arop.minpr && p.Procent <= arop.maxpr);
+                ap.Operations = op;
+                return View(ap);
+            }
+            ap.Operations = op;
+            return View(ap);
+        }
+        public IActionResult ArchOpAcPl(ArchOpAcPl arch)
+        {
+            DateTime date = new DateTime(2000, 1, 1, 0, 0, 0);
+            IQueryable<P> ps = db.Ps.Include(c => c.Operation);
+            ps = ps.Where(p => p.Operation.Plan.User.Email == User.Identity.Name);
+            ps = ps.Where(a => a.Operation.Plan.DataPeriod < DateTime.Now);
+            ArchOpAcPl ap = new ArchOpAcPl();
+            if (arch.Name != null)
+            {
+                ps = ps.Where(p => p.Name == arch.Name);
+                if (arch.NameAct != "ноль")
+                {
+                    ps = ps.Where(p => p.NameAct == arch.NameAct);
+                    if (arch.minsum != 0 && arch.maxsum != 0)
+                    {
+                        ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                        if (arch.StData != date && arch.FinData != date)
+                        {
+                            ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                            ap.PS = ps;
+                            return View(ap);
+                        }
+                    }
+                    if (arch.StData != date && arch.FinData != date)
+                    {
+                        ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                        ap.PS = ps;
+                        return View(ap);
+                    }
+                    ap.PS = ps;
+                    return View(ap);
+                }
+                if (arch.minsum != 0 && arch.maxsum != 0)
+                {
+                    ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                    if (arch.StData != date && arch.FinData != date)
+                    {
+                        ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                        ap.PS = ps;
+                        return View(ap);
+                    }
+                }
+                if (arch.StData != date && arch.FinData != date)
+                {
+                    ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                    ap.PS = ps;
+                    return View(ap);
+                }
+                ap.PS = ps;
+                return View(ap);
+            }
+            if (arch.NameAct != "ноль")
+            {
+                ps = ps.Where(p => p.NameAct == arch.NameAct);
+                if (arch.minsum != 0 && arch.maxsum != 0)
+                {
+                    ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                    if (arch.StData != date && arch.FinData != date)
+                    {
+                        ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                        ap.PS = ps;
+                        return View(ap);
+                    }
+                }
+                if (arch.StData != date && arch.FinData != date)
+                {
+                    ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                    ap.PS = ps;
+                    return View(ap);
+                }
+                ap.PS = ps;
+                return View(ap);
+            }
+            if (arch.minsum != 0 && arch.maxsum != 0)
+            {
+                ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                if (arch.StData != date && arch.FinData != date)
+                {
+                    ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                    ap.PS = ps;
+                    return View(ap);
+                }
+            }
+            if (arch.StData != date && arch.FinData != date)
+            {
+                ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                ap.PS = ps;
+                return View(ap);
+            }
+            ap.PS = ps;
+            return View(ap);
+        }
+        public IActionResult ArchOpAc(ArchOpAcPl arch)
+        {
+            DateTime date = new DateTime(2000, 1, 1, 0, 0, 0);
+            IQueryable<P1> ps = db.P1s.Include(c => c.User);
+            ps = ps.Where(p => p.User.Email == User.Identity.Name);
+            ArchOpAcPl ap = new ArchOpAcPl();
+            if (arch.Name != null)
+            {
+                ps = ps.Where(p => p.Name == arch.Name);
+                if (arch.NameAct != "ноль")
+                {
+                    ps = ps.Where(p => p.NameAct == arch.NameAct);
+                    if (arch.minsum != 0 && arch.maxsum != 0)
+                    {
+                        ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                        if (arch.StData != date && arch.FinData != date)
+                        {
+                            ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                            ap.P1S = ps;
+                            return View(ap);
+                        }
+                    }
+                    if (arch.StData != date && arch.FinData != date)
+                    {
+                        ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                        ap.P1S = ps;
+                        return View(ap);
+                    }
+                    ap.P1S = ps;
+                    return View(ap);
+                }
+                if (arch.minsum != 0 && arch.maxsum != 0)
+                {
+                    ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                    if (arch.StData != date && arch.FinData != date)
+                    {
+                        ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                        ap.P1S = ps;
+                        return View(ap);
+                    }
+                }
+                if (arch.StData != date && arch.FinData != date)
+                {
+                    ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                    ap.P1S = ps;
+                    return View(ap);
+                }
+                ap.P1S = ps;
+                return View(ap);
+            }
+            if (arch.NameAct != "ноль")
+            {
+                ps = ps.Where(p => p.NameAct == arch.NameAct);
+                if (arch.minsum != 0 && arch.maxsum != 0)
+                {
+                    ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                    if (arch.StData != date && arch.FinData != date)
+                    {
+                        ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                        ap.P1S = ps;
+                        return View(ap);
+                    }
+                }
+                if (arch.StData != date && arch.FinData != date)
+                {
+                    ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                    ap.P1S = ps;
+                    return View(ap);
+                }
+                ap.P1S = ps;
+                return View(ap);
+            }
+            if (arch.minsum != 0 && arch.maxsum != 0)
+            {
+                ps = ps.Where(p => p.Sum >= arch.minsum && p.Sum <= arch.maxsum);
+                if (arch.StData != date && arch.FinData != date)
+                {
+                    ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                    ap.P1S = ps;
+                    return View(ap);
+                }
+            }
+            if (arch.StData != date && arch.FinData != date)
+            {
+                ps = ps.Where(p => p.Data >= arch.StData && p.Data <= arch.FinData);
+                ap.P1S = ps;
+                return View(ap);
+            }
+            ap.P1S = ps;
+            return View(ap);
+        }
+
     }
 }

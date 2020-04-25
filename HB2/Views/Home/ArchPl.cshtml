@@ -135,18 +135,19 @@
                 <tr><td>Название</td><td>Дата начала</td><td>Дата конца</td><td>Период</td><td>Процент</td><td>Доход</td><td>Расход</td><td>Итог</td><td></td></tr>
                 @foreach (var i in Model.pl)
                 {
-                    <tr>
-                        <td>@i.Name</td>
-                        <td>@i.Data</td>
-                        <td>@i.DataPeriod</td>
-                        <td>@i.Period</td>
-                        <td>@i.Procent</td>
-                        <td>@i.DochMonth</td>
-                        <td>-@i.RasMonth</td>
-                        <td>@i.RaznDochRas</td>
-                        <td><a asp-action="OperPlan" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td>
-                        
-                    </tr>
+            <tr>
+                <td>@i.Name</td>
+                <td>@i.Data</td>
+                <td>@i.DataPeriod</td>
+                <td>@i.Period</td>
+                <td>@i.Procent</td>
+                <td>@i.DochMonth</td>
+                <td>-@i.RasMonth</td>
+                <td>@i.RaznDochRas</td>
+                <td><a asp-action="ArOpPl" asp-controller="Home" asp-route-id="@i.Id">Операции</a></td>
+                <td><a asp-action="PlSm" asp-controller="Home" asp-route-id="@i.Id">Просмотр</a></td>
+
+            </tr>
                 }
             </table>
         </div>
